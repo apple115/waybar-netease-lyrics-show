@@ -9,14 +9,14 @@ playerShell = f"playerctl --player=Qcm"
 
 
 def getSongId():
-    # 构建获取歌曲 ID 的命令
+    """
+      返回songid
+    """
+
     command = (
         f"{playerShell} metadata mpris:trackid | cut -d '/' -f3 | cut -d \"'\" -f1"
     )
-
-    # 使用 subprocess 运行命令并获取输出
     result = subprocess.check_output(command, shell=True, text=True)
-    # 返回处理后的结果
     return result.strip()
 
 
@@ -53,18 +53,11 @@ def getSongLyricsbyApi(id):
     Raise：
       id 是空
     """
-    try:
-        if id is None:
-            raise ValueError("ID is None")
-        command = f'curl -s "music.163.com/api/song/media?id={id}" | jq -r ".lyric"'
-        result = subprocess.check_output(command, shell=True, text=True).strip()
-        return result
-    except subprocess.CalledProcessError as emit:
-        print(f"Error executing command:{emit}")
-        return None
-    except ValueError as emit:
-        print(f"Error:{emit}")
-        return None
+    if id is None:
+        raise ValueError("ID is None")
+    command = f'curl -s "music.163.com/api/song/media?id={id}" | jq -r ".lyric"'
+    result = subprocess.check_output(command, shell=True, text=True).strip()
+    return result
 
 
 # 如果这个文件夹没有这个歌词列表
@@ -112,14 +105,12 @@ def song():
             for line in lyric.split("\n"):
                 if line.strip().startswith("["):
                     line_position = line[2:6]
-                    # print(line_position)
                     if position == line_position:
                         pasts = line.split("]")
                         if len(pasts)==2:
                             currentLyric = pasts[1]
                         else:
                             currentLyric=""
-                        # currentLyric = "" if line[11:] is None else line[11:]
 
         print(currentLyric, flush=True)
         time.sleep(1)
