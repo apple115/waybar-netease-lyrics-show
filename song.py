@@ -16,18 +16,25 @@ def getSongId():
 
     # 使用 subprocess 运行命令并获取输出
     result = subprocess.check_output(command, shell=True, text=True)
-
     # 返回处理后的结果
     return result.strip()
 
 
 def getSongTitle():
+    """
+      返回songtitle
+    """
+
     command = f"{playerShell} metadata title"
     result = subprocess.check_output(command, shell=True, text=True)
     return result.strip()
 
 
 def get_playing_song_position():
+    """
+      返回song位置
+    """
+
     command = f"{playerShell} metadata --format '{{{{ duration(position) }}}}'"
     result = subprocess.check_output(command, shell=True, text=True)
     return result.strip()
