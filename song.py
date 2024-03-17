@@ -181,14 +181,15 @@ def song():
         lyric, current_position
     )
 
-    currentLyric = result if result is not None else ""
+    currentLyric = result if result is not None else None
     return currentLyric
 
 
 def print_string():
     current_string = "current_string is None"
     while True:
-        current_string = song()
+        result = song()
+        current_string = result if result is not None else current_string
         print(current_string, flush=True)
         time.sleep(1)
 
