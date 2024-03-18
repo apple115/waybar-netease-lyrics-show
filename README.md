@@ -20,3 +20,5 @@ display lyrics on waybar
 这个是简单[讲解](https://apple115.github.io/2024/03/18/waybar-netease-lyrics-show%E7%9A%84%E8%AE%B2%E8%A7%A3/)
 
 希望大家给出意见
+
+- [] TODO: 添加上一首 下一首  暂停
