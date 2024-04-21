@@ -94,12 +94,13 @@ def get_song_lyrics_by_api(id):
 
 def get_song_lyrics_by_file(songId, SongTitle):
     # 如果当前目录没有lyricfiles 则创造一个文件夹
-    if not os.path.exists("lyricfiles"):
-        os.makedirs("lyricfiles")
+    config_dir = os.path.expanduser("~/.config/waybar/lyricfiles")
+    if not os.path.exists(config_dir):
+        os.makedirs(config_dir)
         # print("Created directory: lyricfiles")
     # 如果lyricfiles里 没有songTitle+songid的歌词文件
     # 则添加这个“songTitlesongid.lrc”
-    lyric_file = f"./lyricfiles/{SongTitle}{songId}.lrc"
+    lyric_file = os.path.join(config_dir, f"{SongTitle}{songId}.lrc")
     if not os.path.exists(lyric_file):
         attempts = 0
         lyric = get_song_lyrics_by_api(songId)
